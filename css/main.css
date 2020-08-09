@@ -1,7 +1,14 @@
 body{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     height: 100vh;
+    /* background-image: url('https://images.unsplash.com/photo-1530413008687-20a332ea4065?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1191&q=80'); */
+}
+
+
+#expenseTableDiv{
+    height: 700px;
+    width: 700px;
 }

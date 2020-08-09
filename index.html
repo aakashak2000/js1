@@ -5,27 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Expense</title>
     <link rel="stylesheet" href="css/main.css">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1 id='totalEx'></h1>
-    <input id='inputAmount' type="text">
-    <button id='btnUpdateExpense'>+</button>
 
+    <div class="jumbotron" >
+        <h1 class="display-4"> Wallet Balance Tracker</h1>
+        <p class="lead">Make note of all your earnings, expenditures and savings and keep your expenses in check.</p>
+    </div>
+    <div>
+        <h3>Enter Minimum Balance to be maintained:</h2>
+            <p>(Default: ₹1000)</p>
+        <input type="text" id="minBal" class="form-control" placeholder="Minimum Balance" required>
+        <br>
+        <h1>Wallet Balance <span id='totalExpense' class="badge badge-light"></span></h1>
+        <div>
+            <form id="balanceForm">
+                <div class="form-row">
+                  <div class="col">
+                    <input type="text" id="inputAmount" class="form-control" placeholder="Amount" required>
+                  </div>
+                  <div class="col">
+                    <input type="text" id="inputReason" class="form-control" placeholder="Reason (optional)">
+                  </div>
+                </div>
+              </form>
+              <br>
+              <div>
+                <button class="btn btn-primary btn-lg" id="btnUpdateExpense">Update</button>
+            </div>
+        </div>
+        <div>
+
+            <div></div>
+            <div></div>
+
+        </div>
+    </div>
+    <br>
+    <div id="expenseTableDiv">
+        <table class="table table-sm" id="expenseTable">
+            <thead>
+              <tr>
+                <!-- <th scope="col">#</th> -->
+                <th scope="col">Particulars</th>
+                <th scope="col">Deposits</th>
+                <th scope="col">Withdrawals</th>
+                <th scope="col">Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="newEntry">                
+              </tr>
+            </tbody>
+          </table>
+    </div>
 </body>
 
 <script>
-    let totalExpense = 0;
-    const headingEl = document.querySelector('#totalEx')
-    headingEl.textContent = totalExpense;
-    function addExpenseToTotal(){
-        const inputElement = document.querySelector('#inputAmount');
-        const textAmount = inputElement.value;
-        const expense = parseInt(textAmount,10);
-        totalExpense += expense;
-        headingEl.textContent = totalExpense;  
+    let totalExpense = 0
+    const headingExpense = document.querySelector('#totalExpense')
+    headingExpense.textContent = '₹' + totalExpense
+    
+    
+
+
+    function addEntryToTable(){
+        const amountElement = document.querySelector('#inputAmount')
+        const reasonElement = document.querySelector('#inputReason')
+        const amount = parseInt(amountElement.value,10)
+        var reason = reasonElement.value.toUpperCase()
+       
+        var credit = ''
+        var debit = ''
+        if (amount>=0){
+            credit = amount
+        }
+        else{
+            debit = amount*-1
+        }
+        
+        var table = document.getElementById('expenseTable')
+        var row = table.insertRow()
+        console.log(reason)
+        row.insertCell(0).innerHTML = reason
+        row.insertCell(1).innerHTML = credit
+        row.insertCell(2).innerHTML = debit
+        row.insertCell(3).innerHTML = totalExpense
     }
-    const element = document.querySelector('#btnUpdateExpense');
-    element.addEventListener("click", addExpenseToTotal, false);
+
+
+    function updateExpense(){
+        const minBal = document.querySelector('#minBal')
+        const amountElement = document.querySelector('#inputAmount')
+        const reasonElement = document.querySelector('#inputReason')
+        const amount = parseInt(amountElement.value,10)
+        var minBalance = parseInt(minBal.value, 10)
+        if (isNaN(minBalance)){
+            minBalance=1000
+        }
+        totalExpense = totalExpense + amount
+        headingExpense.textContent = '₹' + totalExpense
+        addEntryToTable()
+        var spanExpense = document.getElementById('totalExpense')
+
+        if(totalExpense>=minBalance){
+            spanExpense.className = 'badge badge-success'
+        }
+        else{
+            spanExpense.className = 'badge badge-danger'
+        }
+        document.getElementById('balanceForm').reset()
+    }
+    
+    const updateBtn = document.querySelector('#btnUpdateExpense')
+    updateBtn.addEventListener('click', updateExpense, false)
     
 </script>
 
