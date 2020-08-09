@@ -80,14 +80,14 @@
         const amount = parseInt(amountElement.value,10)
         var reason = reasonElement.value.toUpperCase()
        
-        var credit = '₹'
-        var debit = '₹'
+        var credit = ''
+        var debit = ''
         if (amount>=0){
-            credit = amount
+            credit = '₹' + amount
             debit = ''
         }
         else{
-            debit = amount*-1
+            debit = '₹' + amount*-1
             credit = ''
         }
         
