@@ -108,6 +108,10 @@
         if (isNaN(minBalance)){
             minBalance=1000
         }
+        if (isNaN(amount)){
+            alert('Please enter an amount!')
+            return
+        }
         totalExpense = totalExpense + amount
         headingExpense.textContent = '₹' + totalExpense
         addEntryToTable()
