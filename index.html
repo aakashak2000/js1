@@ -84,9 +84,11 @@
         var debit = '₹'
         if (amount>=0){
             credit = amount
+            debit = ''
         }
         else{
             debit = amount*-1
+            credit = ''
         }
         
         var table = document.getElementById('expenseTable')
