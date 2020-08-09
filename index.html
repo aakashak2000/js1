@@ -80,8 +80,8 @@
         const amount = parseInt(amountElement.value,10)
         var reason = reasonElement.value.toUpperCase()
        
-        var credit = ''
-        var debit = ''
+        var credit = '₹'
+        var debit = '₹'
         if (amount>=0){
             credit = amount
         }
@@ -93,8 +93,8 @@
         var row = table.insertRow()
         console.log(reason)
         row.insertCell(0).innerHTML = reason
-        row.insertCell(1).innerHTML = '₹' + credit
-        row.insertCell(2).innerHTML = '₹' + debit
+        row.insertCell(1).innerHTML =  credit
+        row.insertCell(2).innerHTML =  debit
         row.insertCell(3).innerHTML = '₹' + totalExpense
     }
 
